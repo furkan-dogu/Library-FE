@@ -27,11 +27,11 @@ const Home = () => {
     setInfo("")
   };
 
-  const URL = process.env.REACT_APP_URL;
+  const URL = "library-hqep.onrender.com"
 
   const getBooks = async () => {
     try {
-      const { data } = await axios.get(`https://${URL}`);
+      const { data } = await axios.get(`https://${URL}/`);
       setBooks(data.result.rows);
     } catch (error) {
       console.log(error);
