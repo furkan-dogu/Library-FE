@@ -7,10 +7,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Cards from "../components/Cards";
 import Modals from "../components/Modals";
+import loadingGif from "../assets/loading.gif";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
-  
+  const [loading, setLoading] = useState(false);
+
   const [info, setInfo] = useState({
     title: "",
     author: "",
@@ -23,18 +25,22 @@ const Home = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    setOpen(false)
-    setInfo("")
+    setOpen(false);
+    setInfo("");
   };
 
-  const URL = "library-hqep.onrender.com"
+  const URL = "library-be-tw3h.onrender.com";
 
   const getBooks = async () => {
+    setLoading(true);
     try {
-      const { data } = await axios.get(`https://${URL}/`);
-      setBooks(data.result.rows);
+      const { data } = await axios.get(`https://${URL}`);
+      setBooks(data.result);
+      setLoading(false);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -44,16 +50,16 @@ const Home = () => {
       getBooks();
     } catch (error) {
       console.log(error);
-    }
-  };
+    } 
+  }
 
   const updateBook = async (edit) => {
     try {
-      await axios.put(`https://${URL}/${edit.id}`, edit);
+      await axios.put(`https://${URL}/${edit._id}`, edit);
       getBooks();
     } catch (error) {
       console.log(error);
-    }
+    } 
   };
 
   const createBook = async (info) => {
@@ -77,7 +83,7 @@ const Home = () => {
         </Typography>
         <Box display={"flex"} justifyContent={"flex-end"} mr={3}>
           <Button variant="contained" onClick={handleOpen}>
-            K<span style={{textTransform: 'uppercase'}}>İ</span>TAP EKLE
+            K<span style={{ textTransform: "uppercase" }}>İ</span>TAP EKLE
           </Button>
           <Modals
             open={open}
@@ -89,19 +95,45 @@ const Home = () => {
           />
         </Box>
       </Container>
-
-      <Grid container gap={2} mt={3} justifyContent={"center"}>
-        {books.map((book) => (
-          <Grid item key={book.id}>
-            <Cards
-              book={book}
-              deleteBook={deleteBook}
-              setInfo={setInfo}
-              handleOpen={handleOpen}
-            />
-          </Grid>
-        ))}
-      </Grid>
+      {loading && (
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <img src={loadingGif} alt="Yükleniyor..." width={250} />
+        </Box>
+      )}
+      {!books.length && !loading ? (
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          <Typography color={"red"} textAlign={"center"} fontSize={24}>
+            Kayıtlı Kitap Bulunmamaktadır.
+          </Typography>
+        </Box>
+      ) : (
+        <Grid container gap={2} mt={3} justifyContent={"center"}>
+          {books.map((book) => (
+            <Grid item key={book._id}>
+              <Cards
+                book={book}
+                deleteBook={deleteBook}
+                setInfo={setInfo}
+                handleOpen={handleOpen}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      )}
     </Box>
   );
 };

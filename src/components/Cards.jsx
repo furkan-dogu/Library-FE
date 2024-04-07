@@ -17,26 +17,44 @@ export default function Cards({ book, deleteBook, setInfo, handleOpen }) {
   return (
     <Card
       sx={{
-        maxWidth: 345,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "space-between",
         width: "300px",
-        height: "420px",
+        height: "450px",
       }}
     >
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {book?.title}
-        </Typography>
+        <Box
+          sx={{
+            height: 65,
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Typography
+            variant="h5"
+            title={book?.title}
+            sx={{
+              overflow: "hidden",
+              display: "-webkit-box",
+              WebkitBoxOrient: "vertical",
+              WebkitLineClamp: 2,
+            }}
+          >
+            {book?.title}
+          </Typography>
+        </Box>
       </CardContent>
       <Box width={"100%"} ml={4}>
         <Typography variant="body2" color="text.secondary">
           ISBN : {book?.ISBN}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Yayınlanma Yılı : {book?.publicationYear}
+          Yayın Tarihi : {book?.publicationYear}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           Tür : {book?.genre}
@@ -58,7 +76,7 @@ export default function Cards({ book, deleteBook, setInfo, handleOpen }) {
         <Button size="small" onClick={handleEdit}>
           <EditIcon />
         </Button>
-        <Button size="small" onClick={() => deleteBook(book?.id)}>
+        <Button size="small" onClick={() => deleteBook(book?._id)}>
           <DeleteIcon />
         </Button>
       </CardActions>

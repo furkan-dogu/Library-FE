@@ -1,7 +1,7 @@
 # Book Management Application
 
 <div align="center">
-  <img src="./src/assets/blog-app.gif" />
+  <img src="./src/assets/readmeImages/kitaplarım.gif" />
 </div>
 
 ## About the Project
@@ -43,7 +43,7 @@ SOLUTION
 │    └── index.html
 ├── src
 │    ├── assets
-│    │     └── images
+│    │     └── [images]
 │    ├── components  
 │    │     ├── Cards.jsx       
 │    │     └── Modals.jsx  
@@ -61,9 +61,9 @@ SOLUTION
 ## Screenshots
 
 <div align="center">
-  <img src="./src/assets/Screenshot_1.jpg"  width="35%" height="500" />
-  <img src="./src/assets/Screenshot_2.jpg"  width="55%" height="600" />
-  <img src="./src/assets/Screenshot_3.jpg"  width="90.5%" height="450" />
+  <img src="./src/assets/readmeImages/Screenshot_1.jpg"  width="35%" height="500" />
+  <img src="./src/assets/readmeImages/Screenshot_2.jpg"  width="55%" height="600" />
+  <img src="./src/assets/readmeImages/Screenshot_3.jpg"  width="90.5%" height="450" />
 </div>
 
 ## Compatibility

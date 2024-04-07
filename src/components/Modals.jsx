@@ -4,6 +4,12 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import { style } from "../helpers/modalStyle";
 import CloseIcon from '@mui/icons-material/Close';
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 
 export default function Modals({
   open,
@@ -24,13 +30,19 @@ export default function Modals({
   const handleSubmit = (e) => {
     e.preventDefault();
     setInfo(info);
-    if (info.id) {
+    if (info?._id) {
       updateBook(info);
     } else {
       createBook(info);
     }
     handleClose();
   };
+
+  let dates = []
+
+  for(let i = (new Date().getFullYear()); i >= 1950; i--) {
+    dates.push(i)
+  }
 
   return (
     <div>
@@ -75,16 +87,35 @@ export default function Modals({
             value={info?.ISBN}
             onChange={handleChange}
           />
-          <TextField
+          {/* <TextField
             required
             fullWidth
             id="publicationYear"
             name="publicationYear"
-            label="Yayınlanma Yılı"
+            label="Yayın Tarihi"
             type="number"
             value={info?.publicationYear}
             onChange={handleChange}
-          />
+          /> */}
+          <FormControl fullWidth>
+            <InputLabel id="publicationYear-label">Yayın Tarihi</InputLabel>
+            <Select
+              labelId="publicationYear-label"
+              id="publicationYear"
+              name="publicationYear"
+              label="Yayın Tarihi"
+              type="number"
+              value={info?.publicationYear}
+              onChange={handleChange}
+              required
+            >
+              {dates.map(date => (
+                <MenuItem key={date} value={date}>
+                  {date}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <TextField
             required
             fullWidth
@@ -112,7 +143,7 @@ export default function Modals({
             color="primary"
             sx={{ mt: 2 }}
           >
-            {info?.id ? "güncelle" : "ekle"}
+            {info?._id ? "güncelle" : "ekle"}
           </Button>
         </Box>
       </Modal>
