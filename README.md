@@ -22,7 +22,7 @@ This application allows users to list, add, edit, and delete books. Users can ma
 ## Backend
 
 - [Codes](https://github.com/furkan-dogu/Library_BE)
-- [Live](https://library-be-tw3h.onrender.com/)
+- [Live](https://library-be-two.vercel.app/)
 
 ## Features
 
